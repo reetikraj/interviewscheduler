@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
-  get 'interviews/index'
   
   resources :interviews
   resources :users
 
   root 'users#index'
 
-  get 'users/index'
 
 
 
