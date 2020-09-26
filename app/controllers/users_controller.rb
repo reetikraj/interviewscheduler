@@ -16,23 +16,38 @@ class UsersController < ApplicationController
 
   def create
   	@user = User.new(user_params)
-  	if @user.save
-  		render :show
-  	else
-  		render :new
+  	
+  	respond_to do |format|
+  		if @user.save
+  			format.html { redirect_to users_path, notice: 'you successfully created the user.'}
+  			format.json { render :show, status: :created, location: @user}
+  		else
+  			format.html { render :new }
+  			format.json { render json: @user.errors, status: :unprocessable_entity}
+  		end
   	end
+
   end
 
   def update 
-  	if @user.update
-  		render :show
-  	else
-  		render :edit
+  	respond_to do |format|
+  		if @user.update(user_params)
+  			format.html { redirect_to @user, notice: 'you successfully updated user.'}
+  			format.json { render :show, status: :ok, location: @user}
+  		else
+  			format.html { render :edit }
+  			format.json { render json: @user.errors, status: :unprocessable_entity }
+  		end
   	end
+
   end
 
   def destroy
   	@user.destroy
+  	respond_to do |format|
+  		format.html { redirect_to users_url, notice: 'you were able to successfully delete the user'}
+  		format.json { head :no_content}
+  	end
   end
 
   private

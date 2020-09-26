@@ -1,4 +1,4 @@
 class User < ApplicationRecord
-	has_many :connections
-	has_and_belongs_to_many :interviews, through: :connections
+	has_many :interviews_users
+	has_many :interviews, through: :interviews_users
 end

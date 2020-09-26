@@ -1,4 +1,4 @@
 class Interview < ApplicationRecord
-	has_many :subjects
-	has_and_belongs_to_many :users, through: :subjects
+	has_many :interviews_users
+	has_many :users, through: :interviews_users
 end
