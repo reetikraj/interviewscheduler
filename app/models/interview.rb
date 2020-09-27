@@ -15,6 +15,7 @@ class Interview < ApplicationRecord
     private
     	
     	def end_before_start
+    		
     		if end_time<=start_time
     			errors.add(:end_time, "must be after start time")
     		end

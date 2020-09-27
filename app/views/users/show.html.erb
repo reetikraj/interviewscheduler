@@ -4,6 +4,7 @@
 <p>
     Name: <%= @user.name %> <br>
     Email: <%= @user.email %> <br>
+    Resume: <%= link_to 'link',  @user.resume.url %> <br>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

@@ -14,11 +14,16 @@
   <h3>User Details</h3>
 
   <p>
+    
     <%= form.label :'Name'%>
     <%= form.text_field :'name' %>
 
     <%= form.label :'Email'%>
     <%= form.text_field :'email' %>
+
+    <%= form.label :'Resume'%>
+    <%= form.file_field :resume %>
+
   </p>
 
   <div class="actions">

@@ -10,6 +10,7 @@
 <p>
     Name: <%= @interview.interviews_users.where(:role => 1).first.user.name %> <br>
     Email: <%= @interview.interviews_users.where(:role => 1).first.user.email %> <br>
+    Resume: <%= link_to 'link',  @interview.interviews_users.where(:role => 1).first.user.resume.url %> <br>
    
 </p>
 

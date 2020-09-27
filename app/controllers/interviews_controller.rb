@@ -83,7 +83,12 @@ class InterviewsController < ApplicationController
         end
 
         respond_to do |format|
-          if @interview.update(:interview_date => interview_params[:interview_date], :start_time => interview_params[:start_time], :end_time => interview_params[:end_time])
+          if @interview.update(
+            :interview_date => interview_params[:interview_date], 
+            :start_time => interview_params[:start_time], 
+            :end_time => interview_params[:end_time]
+            )
+
             @iold = @interview.interviews_users.where(:role => 0).first
             @iold.destroy
             @inew = @interview.interviews_users.where(:role => nil).first
@@ -117,7 +122,12 @@ class InterviewsController < ApplicationController
     end
 
     def interview_params
-        params.require(:interview).permit({interviews_users_attributes: [users: [:name, :email, :resume]]}, :interview_date, :start_time, :end_time)
+        params.require(:interview).permit(
+            {interviews_users_attributes: [users: [:name, :email, :resume]]}, 
+            :interview_date, 
+            :start_time, 
+            :end_time
+            )
     end
 end
 

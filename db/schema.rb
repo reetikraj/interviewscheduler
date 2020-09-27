@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200926065806) do
+ActiveRecord::Schema.define(version: 20200927132050) do
 
   create_table "interviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.date "interview_date"
@@ -35,6 +35,10 @@ ActiveRecord::Schema.define(version: 20200926065806) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "resume_file_name"
+    t.string "resume_content_type"
+    t.integer "resume_file_size"
+    t.datetime "resume_updated_at"
   end
 
   add_foreign_key "interviews_users", "interviews"
