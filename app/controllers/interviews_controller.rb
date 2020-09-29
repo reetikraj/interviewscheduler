@@ -46,12 +46,11 @@ class InterviewsController < ApplicationController
 
         respond_to do |format|
           if @interview.save
-            @temp = interviewer_params[:email]
-            puts(@temp)
-            #UserMailer.welcome_email(@temp).deliver_now
-            puts(1000)
-            puts(@interview.id)
             MailingfeatureJob.perform_later(@interview.id)
+            d=@interview.interview_date
+            t=@interview.start_time-30.minutes
+            dt=DateTime.new(d.year, d.month, d.day, t.hour, t.min, t.sec, t.zone)
+            RemindfeatureJob.set(wait_until: dt).perform_later(@interview.id)
             format.html { redirect_to interviews_path, notice: 'Interview schedule was successfully created.'}
             format.json { render :show, status: :created, location: @interview }
           else
@@ -94,7 +93,12 @@ class InterviewsController < ApplicationController
             :start_time => interview_params[:start_time], 
             :end_time => interview_params[:end_time]
             )
-
+            UpdatefeatureJob.perform_later(@interview.id)
+            d=@interview.interview_date
+            t=@interview.start_time-30.minutes
+            dt=DateTime.new(d.year, d.month, d.day, t.hour, t.min, t.sec, t.zone)
+            RemindfeatureJob.set(wait_until: dt).perform_later(@interview.id)
+            
             @iold = @interview.interviews_users.where(:role => 0).first
             @iold.destroy
             @inew = @interview.interviews_users.where(:role => nil).first
