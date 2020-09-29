@@ -120,6 +120,7 @@ class InterviewsController < ApplicationController
 
     def destroy
         @interview.destroy
+        CancelfeatureJob.perform_later(@interview.id)
         respond_to do |format|
           format.html { redirect_to interviews_url, notice: 'Interview schedule was successfully destroyed.' }
           format.json { head :no_content }
