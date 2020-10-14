@@ -2,7 +2,7 @@ module Api
     module V1
         class InterviewsController < ApplicationController
             skip_before_action :verify_authenticity_token
-            before_action :set_interview, only: [:show, :edit, :update]
+            before_action :set_interview, only: [:show, :edit, :update, :destroy]
 
             def index
                 @interviews = Interview.all
@@ -92,6 +92,10 @@ module Api
                     render json: {status: "FAILED"}, status: :unprocessable_entity
                 end
               end
+            def destroy
+                @interview.destroy
+                render json: {status: "DONE"}, status: :ok
+            end
 
 
             private
@@ -101,9 +105,6 @@ module Api
 
                 def set_interview
                     @interview = Interview.find(params[:id])
-
-                    #render json: {status: 'SUCCESS', message: 'Loaded Interview', data:@interview}, status: :ok
-                    
                 end
         end
     end
